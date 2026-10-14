@@ -1,0 +1,76 @@
+1. Crear la base de datos en PostgreSQL
+Abre pgAdmin y conéctate con tu usuario de PostgreSQL.
+Haz clic derecho en Databases → Create → Database....
+En Database escribe crocante y guarda con Save.
+Si el usuario crocante no existe, abre Query Tool (sobre la base crocante) y ejecuta:
+sql
+   DO $$
+   BEGIN
+      IF NOT EXISTS (SELECT FROM pg_roles WHERE rolname = 'crocante') THEN
+         CREATE USER crocante WITH PASSWORD 'crocante';
+      ELSE
+         ALTER USER crocante WITH PASSWORD 'crocante';
+      END IF;
+   END
+   $$;
+
+   GRANT ALL PRIVILEGES ON DATABASE crocante TO crocante;
+   GRANT ALL ON SCHEMA public TO crocante;
+2. Abrir Eclipse con un workspace nuevo
+Abre Eclipse.
+Cuando pregunte por el Workspace, escribe una carpeta nueva y vacía, por ejemplo C:\Users\TU_USUARIO\eclipse-workspace-crocante. No uses la carpeta donde descomprimiste el proyecto.
+Marca Use this as the default and do not ask again si quieres, y pulsa Launch.
+3. Importar el proyecto backend como Maven
+Descomprime el archivo descargado en una carpeta aparte, por ejemplo C:\Users\TU_USUARIO\Desktop\crocante.
+En Eclipse, ve a File → Import....
+Selecciona Maven → Existing Maven Projects y pulsa Next.
+En Root Directory, pulsa Browse y elige la carpeta crocante-backend (la que tiene el archivo pom.xml).
+Verifica que aparezca el proyecto marcado y pulsa Finish.
+Espera a que termine la descarga de dependencias (barra de progreso abajo a la derecha).
+
+Si aparece un error de Java, ve a Project → Properties → Java Build Path y asegúrate de que use Java 21 (o el JDK que tengas instalado).
+
+4. Configurar la conexión a la base de datos
+En el proyecto, abre src/main/resources/application.properties.
+Revisa que tenga exactamente estas líneas:
+properties
+   spring.datasource.url=jdbc:postgresql://localhost:5432/crocante
+   spring.datasource.username=crocante
+   spring.datasource.password=crocante
+Guarda con Ctrl + S.
+5. Ejecutar el backend
+Busca la clase principal CrocanteApplication.java (en src/main/java).
+Clic derecho sobre ella → Run As → Spring Boot App (o Java Application).
+Espera a ver en la consola la línea Tomcat started on port 8080.
+Para probar, abre en el navegador: http://localhost:8080.
+
+Si ves un error de autenticación, revisa que el usuario y la clave de PostgreSQL coincidan con el paso 1 y el paso 4.
+
+6. Ejecutar el frontend Angular
+Necesitas tener instalados Node.js (versión LTS) y Angular CLI. Si no tienes Angular CLI, abre la terminal y ejecuta:
+bash
+   npm install -g @angular/cli
+Abre una terminal (CMD, PowerShell o la de VS Code) y entra a la carpeta del frontend:
+bash
+   cd C:\Users\TU_USUARIO\Desktop\crocante\crocante-frontend
+
+Si la carpeta tiene otro nombre, usa ese.
+3. Instala las dependencias:
+
+bash
+   npm install
+Levanta el servidor de desarrollo:
+bash
+   ng serve
+Espera el mensaje Local: http://localhost:4200/.
+7. Acceder a la aplicación
+Con el backend corriendo (puerto 8080) y el frontend corriendo (puerto 4200), abre en el navegador:
+   http://localhost:4200
+Ahí debería aparecer la pantalla de la aplicación.
+Resumen de puertos
+Parte	Dirección
+Base de datos PostgreSQL	localhost:5432
+Backend (Spring Boot)	http://localhost:8080
+Frontend (Angular)	http://localhost:4200
+
+Ejecuta primero la base de datos, luego el backend y por último el frontend.
