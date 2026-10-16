@@ -5,6 +5,7 @@ Material de clases del proyecto **Crocante** (Desarrollo de Software Web II, Ins
 | Clase | Documento | Presentación |
 |---|---|---|
 | 1. Primer Controller con Swagger | [Clase 1 - Crocante.docx](clase-01/Clase%201%20-%20Crocante.docx) | [Clase 1 - Crocante.pptx](clase-01/Clase%201%20-%20Crocante.pptx) |
+| 2. CRUD de tarjetas Bip! (MVC en capas) | [Clase 2 - CRUD de tarjetas Bip.docx](clase-02/Clase%202%20-%20CRUD%20de%20tarjetas%20Bip.docx) | [Clase 2 - CRUD de tarjetas Bip.pptx](clase-02/Clase%202%20-%20CRUD%20de%20tarjetas%20Bip.pptx) |
 
 Código del proyecto:
 
